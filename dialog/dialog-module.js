@@ -1,9 +1,24 @@
 (function () {
     'use strict';
 
-    function Dialog(name, title = 'Title', x = 0, y = 0, backgroundColor = '#ffffff') {
-        if (!name) throw new Error('Should specify "name" parameter');
-        this.name = name;
+    function* generateId(prefix = 'id', initialNumber = 1, maxAmount = 100) {
+        let index = initialNumber;
+        while (index < maxAmount) {
+            yield prefix + index++;
+        }
+    }
+
+    const dialogIdGenerator = generateId('dialog-');
+
+    function Dialog(title = 'Title', x = 0, y = 0, backgroundColor = '#ffffff') {
+
+        Object.defineProperty(this, 'id', {
+            value: dialogIdGenerator.next().value,
+            writable: false,
+            enumerable: true,
+            configurable: false
+        });
+
         this.title = title;
         this.x = x;
         this.y = y;
@@ -26,7 +41,7 @@
     }
 
     Dialog.prototype.hide = function () {
-        const dialog = document.getElementById(this.name);
+        const dialog = document.getElementById(this.id);
         this._parentElement.removeChild(dialog);
     }
 
@@ -35,7 +50,7 @@
                        position: absolute;
                        top: ${this.y}px;
                        left: ${this.x}px`;
-        return `<div id=${this.name} style="${style}">
+        return `<div id=${this.id} style="${style}">
                   <h1>${this.title}</h1>
                   <button id="dialog-ok-button">Ok</button>
                   <button id="dialog-cancel-button">Cancel</button>
