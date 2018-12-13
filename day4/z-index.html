@@ -1,0 +1,21 @@
+<head>
+    <style>
+        div {
+            position: fixed;
+            top: 1px;
+            left: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">Click</button>
+    <div id="div1" style="background-color: brown;">DIV 1</div>
+    <div id="div2" style="background-color: red;">DIV 2</div>
+    <script>
+        document.getElementById('btn').addEventListener('click', function () {
+            const div = document.getElementById('div1');
+            div.style.zIndex = div.style.zIndex.valueOf() + 1;
+        }, false);
+    </script>
+</body>

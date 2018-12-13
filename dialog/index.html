@@ -5,10 +5,20 @@
 </head>
 
 <body>
+    <div id="container"></div>
     <script src="dialog-module.js"></script>
     <script>
-        var dialog = new _dialog.Dialog('Dialog1', 500, 500, 'red');
-        dialog.show();
+        var dialog = new _dialog.Dialog('Dialog', 0, 0, 'red');
+        dialog.onOkButtonClick = function (e) {
+            alert('Ok button clicked!');
+            setTimeout(function () {
+                dialog.hide();
+            }, 5000);
+        }
+        dialog.onCancelButtonClick = function () {
+            dialog.hide();
+        }
+        dialog.show('container');
     </script>
 </body>
 

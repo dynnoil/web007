@@ -36,3 +36,13 @@ function* generateElementsId(prefixes = ["id"], initialNumber = 1, maxAmount = 1
 
 const ids = [...generateElementsId(['btn', 'div'], 1, 5)];
 console.log(ids);
+
+function* generateNewId(prefix = 'id', initialNumber = 1, maxAmount = 10) {
+    let index = initialNumber;
+    while (index < maxAmount) {
+        let result = yield prefix + index++;
+        if (result != undefined && typeof result == 'number') {
+            // TODO
+        }
+    }
+}

@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <title>Day #4</title>
+    <style>
+        body {
+            margin-left: 30px;
+            margin-right: 15px;
+            background-color: #ffffff;
+        }
+        p {
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer" style="border-style: solid">
+        Outer div block
+        <div id="inner" style="border-style: dashed">
+            Inner div block
+            <p id="txt">Click me</p>
+        </div>
+    </div>
+    <script>
+        const colors = ['red', 'green', 'blue', 'magenta', 'yellow'];
+        let currentColor = 0;
+        function getColor() {
+            if (currentColor == colors.length) {
+                currentColor = 0;
+            }
+            return colors[currentColor++];
+        }
+        function hadnleEvent(event) {
+            // event.target;  - элемент, к которому привязано событие
+            // event.currentTarget; - элемент, на котором произошло событие в результате bubling и capturing
+            const element = event.target;
+            element.style.backgroundColor = getColor();
+            // const currentElement = event.currentTarget;
+            // currentElement.style.color = colors[currentColor];
+        }
+        const outer = document.getElementById('outer');
+        outer.addEventListener('click', hadnleEvent, false);
+        const inner = document.getElementById('inner');
+        let flip = false;
+        inner.addEventListener('click', function (event) {
+            event.currentTarget.style.color = flip ? 'red' : 'yellow';
+            flip = !flip;
+        }, false);
+    </script>
+    <div>
+        <p class="clickable">small text</p>
+        <h1 class="clickable">small text</h1>
+        <span class="clickable">small text</span>
+    </div>
+    <script>
+        function handleClickable(event) {
+            event.target.style.backgroundColor = getColor();
+        }
+        const clickables = document.getElementsByClassName('clickable');
+        for (let clickable of clickables) {
+            clickable.addEventListener('click', handleClickable, false);
+        }
+    </script>
+    <a id="go-yandex" href="http://ya.ru">Go Yandex</a>
+    <script>
+        function handleEvent(event) {
+            alert(event.target.innerText);
+            event.preventDefault();
+        }
+        document.getElementById('go-yandex').addEventListener('click', handleEvent, false);
+    </script>
+    <div class="another-clickable" id="another-outer" style="border-style: solid">
+        Outer div block
+        <div class="another-clickable" id="another-inner" style="border-style: dashed">
+            Inner div block
+            <p class="another-clickable" id="another-txt">Click me</p>
+        </div>
+    </div>
+    <script>
+        const anotherClickables = document.getElementsByClassName('another-clickable');
+        function handleAnotherClickableFirst(event) {
+            event.currentTarget.style.backgroundColor = getColor();
+            if (event.currentTarget == event.target) {
+                //event.stopPropagation();
+                event.stopImmediatePropagation();
+            }
+        }
+        function handleAnotherClickableSecond(event) {
+            event.currentTarget.style.color = getColor();
+        }
+        for (let anotherClickable of anotherClickables) {
+            anotherClickable.addEventListener('click', handleAnotherClickableFirst, false);
+            anotherClickable.addEventListener('click', handleAnotherClickableSecond, false);
+        }
+    </script>
+</body>
+
+</html>
