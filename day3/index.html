@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <title>Day #3</title>
+</head>
+
+<body>
+    <a href="javascript:new Date().toLocaleTimeString()">What time is it?</a>
+    <a href="javascript:window.open('about:blank'); void 0;">Open Window</a>
+    <script>
+        function show() {
+            document.writeln("my show is called");
+        }
+    </script>
+    <script src="mylib.js"></script>
+    <script src="module.js"></script>
+    <script src="module2.js"></script>
+    <script>
+        window.ruSbt = _$_; // alias
+    </script>
+    <script>
+        show();
+        _$_.show();
+        document.writeln(_$_.toHeader(3, 'header'));
+        document.writeln(ruSbt.toHeader(1, 'sbt header'));
+    </script>
+    <script src="dialog-module.js"></script>
+    <script>
+        var dialog = new _dialog.Dialog('dialog1', 'Dialog1', 500, 500, 'red');
+        document.writeln(dialog.show());
+    </script>
+</body>
+
+</html>
