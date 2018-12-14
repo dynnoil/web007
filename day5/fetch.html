@@ -1,0 +1,26 @@
+<html>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        const toJson = data => data.json();
+        const printCharacterInfo = (data) => {
+            $('#character-info').text(data.results[0].name);
+        }
+        const getCharacterInfo = () => {
+            fetch('https://swapi.co/api/people')
+                .then(toJson)
+                .then(data => fetch(data.next))
+                .then(toJson)
+                .then(printCharacterInfo);
+            $('#character-info').text('Waiting for a character name...');
+        }
+        $(document).ready(() => {
+            $('#get-character-info').on('click', getCharacterInfo);
+        });
+    </script>
+    <div id="character-info"></div>
+    <button id="get-character-info">Get character info</button>
+</body>
+
+</html>

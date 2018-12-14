@@ -1,0 +1,39 @@
+<html>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        const toJson = data => data.json();
+        const displayCharacterName = (data) => {
+            $('#character-name').text(data.name);
+            return data;
+        }
+        const returnFilmsLinks = data => data.films;
+        const displayFilmTitle = (data) => {
+            $('#character-films').append(`<li>${data.title}</li>`);
+        }
+        const fetchAllFilms = (filmLinks) => {
+            filmLinks.forEach(filmLink => {
+                fetch(filmLink)
+                    .then(toJson)
+                    .then(displayFilmTitle);
+            });
+        }
+        const getCharacterFilms = () => {
+            fetch('https://swapi.co/api/people/4/')
+                .then(toJson)
+                .then(displayCharacterName)
+                .then(returnFilmsLinks)
+                .then(fetchAllFilms);
+            $('#character-films').empty();
+        }
+        $(document).ready(() => {
+            $('#get-character-films').on('click', getCharacterFilms);
+        });
+    </script>
+    <h3 id="character-name"></h3>
+    <div id="character-films"></div>
+    <button id="get-character-films">Get character films</button>
+</body>
+
+</html>
