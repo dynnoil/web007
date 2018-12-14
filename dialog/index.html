@@ -5,21 +5,27 @@
 </head>
 
 <body>
-    <div id="container"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="dialog-module.js"></script>
     <script>
-        var dialog = new _dialog.Dialog('Dialog', 0, 0, 'red');
-        dialog.onOkButtonClick = function (e) {
-            alert('Ok button clicked!');
-            setTimeout(function () {
+        $(document).ready(function () {
+            var dialog = new _dialog.Dialog('Dialog', 0, 0, 'red');
+            dialog.onOkButtonClick = function () {
+                alert('Ok button clicked!');
+                setTimeout(function () {
+                    dialog.hide();
+                }, 5000);
+            }
+            dialog.onCancelButtonClick = function () {
                 dialog.hide();
-            }, 5000);
-        }
-        dialog.onCancelButtonClick = function () {
-            dialog.hide();
-        }
-        dialog.show('container');
+                setTimeout(function () {
+                    dialog.remove();
+                }, 3000);
+            }
+            dialog.show('container');
+        });
     </script>
+    <div id="container"></div>
 </body>
 
 </html>

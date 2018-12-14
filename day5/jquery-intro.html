@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <title>Day #5</title>
+    <style>
+        div {
+            border-style: dashed;
+            border-width: 4px;
+        }
+
+        p {
+            font-size: 12pt;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .mouse {
+            background-color: rgb(179, 46, 46);
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log('ready: ' + this);
+            $('p:nth-child(3)')
+                .mouseover(event => {
+                    // Внутри функций-стрелок – тот же this, что и снаружи
+                    console.log('mouseover: ' + this);
+                    $(event.target).toggleClass('mouse');
+                })
+                .mouseout(function (event) {
+                    console.log('mouseout: ' + this);
+                    $(event.target).toggleClass('mouse');
+                });
+            $('#create-p').click(function () {
+                const p = document.createElement('p');
+                $(p).html('simple paragraph');
+                $('div:first-child').append(p);
+            });
+        });
+    </script>
+    <div>
+        <div>
+            <p>Text</p>
+            <p>Text</p>
+            <p>Text</p>
+        </div>
+        <button id="create-p">Create paragraph</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<html>
+
+<head>
+    <title>Day #5</title>
+    <style>
+        div {
+            border-style: dashed;
+            border-width: 4px;
+        }
+
+        p {
+            font-size: 12pt;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .mouse {
+            background-color: rgb(179, 46, 46);
+        }
+
+        .visibility {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const handleMouseEvent = (event) => {
+                $(event.target).toggleClass('mouse');
+            }
+            $('p:nth-child(3)')
+                .mouseover(handleMouseEvent)
+                .mouseout(handleMouseEvent);
+            $('#create-p').click(function () {
+                const p = document.createElement('p');
+                $(p).html('simple paragraph');
+                $('div:first-child').append(p);
+            });
+            $('#apperance-div').on('click', () => {
+                const myDiv = $('#my-div');
+                if (myDiv.css('visibility') === 'hidden') {
+                    myDiv.css('visibility', 'visible');
+                } else {
+                    myDiv.css('visibility', 'hidden');
+                }
+            });
+            $('#apperance-div-via-css').on('click', () => $('#my-div').toggleClass('visibility'));
+        });
+    </script>
+    <div>
+        <div id="my-div">
+            <p>Text</p>
+            <p>Text</p>
+            <p>Text</p>
+        </div>
+        <button id="create-p">Create paragraph</button>
+        <button id="apperance-div">Hide/Appear #my-div block</button>
+        <button id="apperance-div-via-css">Hide/Appear #my-div block via CSS</button>
+    </div>
+</body>
+
+</html>
