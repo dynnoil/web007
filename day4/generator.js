@@ -46,3 +46,20 @@ function* generateNewId(prefix = 'id', initialNumber = 1, maxAmount = 10) {
         }
     }
 }
+
+/**
+ * After return in generator function generator object returns done set to true
+ */
+function* genaratorFunc() {
+    yield 1;
+    yield 2;
+    return 3;
+    yield 4;
+}
+
+const generatorObject = genaratorFunc();
+
+deepEqual(generatorObject.next(), { done: false, value: 1 });
+deepEqual(generatorObject.next(), { done: false, value: 2 });
+deepEqual(generatorObject.next(), { done: true, value: 3 });
+deepEqual(generatorObject.next(), { done: true, value: undefined });
